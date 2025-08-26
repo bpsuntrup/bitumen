@@ -1,0 +1,10 @@
+{
+  "name": "app",
+  "private": true,
+  "scripts": {
+    "build": "webpack --config webpack.config.js"
+  },
+  "dependencies": {
+    "react": "^19.1.1"
+  }
+}
