@@ -5,6 +5,12 @@
     "build": "webpack --config webpack.config.js"
   },
   "dependencies": {
-    "react": "^19.1.1"
+    "@babel/preset-react": "^7.27.1",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "webpack": "^5.101.3"
+  },
+  "devDependencies": {
+    "webpack-cli": "^6.0.1"
   }
 }
