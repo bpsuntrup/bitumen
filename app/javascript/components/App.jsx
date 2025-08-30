@@ -1,25 +1,24 @@
+import { useState } from "react";
 import EventForm from "./EventForm";
 import EventList from "./EventList";
 export default function App() {
     let eventList = getEventList();
+    let [shown, setShown] = useState("form");
+    const views = {
+        form: <EventForm />,
+        list: <EventList eventList={eventList} />,
+    };
+
     return (<>
         <h1>Bitumen</h1>
         <nav>
             <ul>
-                <li onClick={renderMakeAppointment}> Make an Appointment </li>
-                <li onClick={renderMySchedule}> See Ben's Schedule </li>
+                <li onClick={() => {setShown("form")}}> Make an Appointment </li>
+                <li onClick={() => {setShown("list")}}> See Ben's Schedule </li>
             </ul>
         </nav>
-        <EventForm />
-        <EventList eventList={eventList} />
+        { views[shown] }
     </>);
-}
-
-function renderMakeAppointment() {
-    console.log("make appt");
-}
-function renderMySchedule() {
-    console.log('render sched');
 }
 
 function getEventList() {
