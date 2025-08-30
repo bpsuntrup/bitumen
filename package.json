@@ -2,13 +2,16 @@
   "name": "app",
   "private": true,
   "scripts": {
-    "build": "webpack --config webpack.config.js"
+    "build": "webpack --config webpack.config.js",
+    "build:dev": "webpack --mode development --config webpack.config.js"
   },
   "dependencies": {
     "@babel/preset-env": "^7.28.3",
     "@babel/preset-react": "^7.27.1",
     "babel-loader": "^10.0.0",
+    "moment": "^2.30.1",
     "react": "^19.1.1",
+    "react-calendar": "^6.0.0",
     "react-dom": "^19.1.1",
     "webpack": "^5.101.3"
   },
