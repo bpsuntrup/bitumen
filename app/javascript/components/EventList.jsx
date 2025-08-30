@@ -1,7 +1,10 @@
 import moment from "moment";
 
-export default function EventList({eventList,}) {
-    eventList = eventList.map(e => {
+export default function EventList({eventList,apptDate}) {
+    console.log(apptDate);
+    eventList = eventList.filter((e) => {
+        return e.startTime.toDateString() == apptDate.toDateString()
+    }).map(e => {
         const eventDate = <div className="list-event-date">{ e.startTime.toDateString() }</div>
         const endTime = moment(e.startTime).add(e.duration, 'm').toDate();
         const eventStartTime = <div className="list-event-start-time">{ "Starting: " + e.startTime.toLocaleTimeString() }</div>
@@ -15,8 +18,7 @@ export default function EventList({eventList,}) {
         </li>);
     });
     return (<>
-        <h2> Ben's Current Schedule </h2>
+        <h2> Ben's Schedule for {apptDate.toDateString()}</h2>
         <ul className="event-list">{eventList}</ul>
     </>)
 }
-

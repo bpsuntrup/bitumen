@@ -1,37 +1,37 @@
 import { useState } from "react";
 import leftPad from "left-pad";
 import moment from "moment-timezone";
-import Calendar from "react-calendar";
 import 'react-calendar/dist/Calendar.css';
 
-export default function EventForm({addEvent, events}) {
+export default function EventForm({addEvent, events, apptDate}) {
 
-    let [apptDate, setApptDate] = useState(new Date());
     let [startTime, setStartTime] = useState();
 
     const startTimes = timeRange(apptDate, '08:00', '19:30', [30, 'm']) // TODO: filter unavailable times
     const endTimes = timeRange(apptDate, '08:30', '20:00', [30, 'm'])
 
-    const options = startTimes.map((t) => {
+    let options = startTimes.map((t) => {
         let hhmm = t.format('hh:mm A z');
         let HHmm = t.format('HH:mm');
         return <option value={HHmm}> {hhmm} </option>
     })
+    options.unshift(<option value=""> {"Select a Time"} </option>);
 
     return (<>
-        <h2> Set up an appointment with Ben </h2>
-        <Calendar onChange={setApptDate} value={apptDate} />
-        <label> Time: </label> 
+        <label> Start Time: </label> 
         <select onChange={(e) => {setStartTime(newTime(apptDate, e.target.value))}}>
             {options}
         </select>
         <div> {apptDate.toDateString()} </div>
-        <div> {startTime?.format('YYYY MM dd hh:mm A z')} </div>
+        <div> {startTime ? startTime.format('YYYY MM dd hh:mm A z') : "select a time"} </div>
         <input type="time" step="30" min="08:00" max="20:00"/>
     </>)
 }
 
 function newTime(date, HHmm) {
+    if (!HHmm) {
+        return undefined;
+    }
     const [hour, min] = HHmm.split(':');
     const modate = moment.tz(date, 'America/Chicago') // HARD CODED THE MIDWEST WUUUUUH?
     modate.hour(hour);

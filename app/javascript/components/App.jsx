@@ -1,9 +1,12 @@
 import { useState } from "react";
+import Calendar from "react-calendar";
 import EventForm from "./EventForm";
 import EventList from "./EventList";
 export default function App() {
     let [events, setEvents] = useState(getEventList());
     let [shown, setShown] = useState("form");
+    let [apptDate, setApptDate] = useState(new Date());
+
     const views = {
         form: <EventForm addEvent={(e) => {addEvent(events, setEvents, e)}} events={events}/>,
         list: <EventList eventList={events} />,
@@ -17,7 +20,10 @@ export default function App() {
                 <li onClick={() => {setShown("list")}}> See Ben's Schedule </li>
             </ul>
         </nav>
-        { views[shown] }
+        <h2> Set up an appointment with Ben </h2>
+        <Calendar onChange={setApptDate} value={apptDate} />
+        <EventForm addEvent={(e) => {addEvent(events, setEvents, e)}} events={events} apptDate={apptDate}/>,
+        <EventList eventList={events} apptDate={apptDate}/>,
     </>);
 }
 
