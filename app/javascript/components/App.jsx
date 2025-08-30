@@ -6,13 +6,20 @@ export default function App() {
         <h1>Bitumen</h1>
         <nav>
             <ul>
-                <li> Make an Appointment </li>
-                <li> See Ben's Schedule </li>
+                <li onClick={renderMakeAppointment}> Make an Appointment </li>
+                <li onClick={renderMySchedule}> See Ben's Schedule </li>
             </ul>
         </nav>
         <EventForm />
         <EventList eventList={eventList} />
     </>);
+}
+
+function renderMakeAppointment() {
+    console.log("make appt");
+}
+function renderMySchedule() {
+    console.log('render sched');
 }
 
 function getEventList() {
