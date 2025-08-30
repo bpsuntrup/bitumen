@@ -2,11 +2,11 @@ import { useState } from "react";
 import EventForm from "./EventForm";
 import EventList from "./EventList";
 export default function App() {
-    let eventList = getEventList();
+    let [events, setEvents] = useState(getEventList());
     let [shown, setShown] = useState("form");
     const views = {
-        form: <EventForm />,
-        list: <EventList eventList={eventList} />,
+        form: <EventForm addEvent={(e) => {addEvent(events, setEvents, e)}} events={events}/>,
+        list: <EventList eventList={events} />,
     };
 
     return (<>
@@ -19,6 +19,11 @@ export default function App() {
         </nav>
         { views[shown] }
     </>);
+}
+
+function addEvent(events, setEvents, e) {
+    events.push(e);
+    setEvents(events);
 }
 
 function getEventList() {
