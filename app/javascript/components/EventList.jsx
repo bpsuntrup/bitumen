@@ -14,6 +14,9 @@ export default function EventList({eventList,}) {
             <p className="list-event-details">{e.details}</p>
         </li>);
     });
-    return <ul className="event-list">{eventList}</ul>;
+    return (<>
+        <h2> Ben's Current Schedule </h2>
+        <ul className="event-list">{eventList}</ul>
+    </>)
 }
 

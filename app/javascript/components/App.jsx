@@ -4,7 +4,12 @@ export default function App() {
     let eventList = getEventList();
     return (<>
         <h1>Bitumen</h1>
-        <h5>Schedule an interview with Benjamin</h5>
+        <nav>
+            <ul>
+                <li> Make an Appointment </li>
+                <li> See Ben's Schedule </li>
+            </ul>
+        </nav>
         <EventForm />
         <EventList eventList={eventList} />
     </>);
