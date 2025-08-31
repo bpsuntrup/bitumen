@@ -2,6 +2,9 @@ import { useState } from "react";
 import Calendar from "react-calendar";
 import EventForm from "./EventForm";
 import EventList from "./EventList";
+import 'react-calendar/dist/Calendar.css';
+import './styles/App.css';
+
 export default function App() {
     let [events, setEvents] = useState(getEventList());
     let [shown, setShown] = useState("form");
@@ -14,16 +17,12 @@ export default function App() {
 
     return (<>
         <h1>Bitumen</h1>
-        <nav>
-            <ul>
-                <li onClick={() => {setShown("form")}}> Make an Appointment </li>
-                <li onClick={() => {setShown("list")}}> See Ben's Schedule </li>
-            </ul>
-        </nav>
         <h2> Set up an appointment with Ben </h2>
-        <Calendar onChange={setApptDate} value={apptDate} />
-        <EventForm addEvent={(e) => {addEvent(events, setEvents, e)}} events={events} apptDate={apptDate}/>,
-        <EventList eventList={events} apptDate={apptDate}/>,
+        <main id="main-container">
+            <div class="main-widget"> <Calendar onChange={setApptDate} value={apptDate} /> </div>
+            <EventForm addEvent={(e) => {addEvent(events, setEvents, e)}} events={events} apptDate={apptDate}/>
+            <EventList eventList={events} apptDate={apptDate}/>
+        </main>
     </>);
 }
 

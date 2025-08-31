@@ -11,14 +11,14 @@ export default function EventList({eventList,apptDate}) {
         const eventEndTime = <div className="list-event-end-time">{ "Ending: " + endTime.toLocaleTimeString() }</div>
         const eventWhen = <> { eventDate } { eventStartTime } { eventEndTime } </>
 
-        return (<li className="list-event-element" key={e.eventId}>
+        return ( <li className="list-event-element" key={e.eventId}>
             <div className="list-event-when">{eventWhen}</div>
             <div className="list-event-where">{e.where}</div>
             <p className="list-event-details">{e.details}</p>
         </li>);
     });
-    return (<>
-        <h2> Ben's Schedule for {apptDate.toDateString()}</h2>
+    return (<div className={"event-list"}>
+        <h3> Ben's Schedule for {apptDate.toDateString()}</h3>
         <ul className="event-list">{eventList}</ul>
-    </>)
+    </div>)
 }

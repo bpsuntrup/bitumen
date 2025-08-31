@@ -1,0 +1,44 @@
+:root {
+    --light-yellow: #fcffa1;
+    /*--grey-yellow: #f6f7c6;*/
+    --light-grey: #fafaf5;
+    --grey-yellow: #fbfcd7;
+    --dark-tomato: #ed7b61;
+    font-family: sans-serif;
+    color-scheme: light;
+    background-color: var(--light-grey);
+}
+
+h1 {
+    color: var(--dark-tomato);
+}
+h1, h2 {
+    width: 100%;
+    text-align: center;
+}
+
+main {
+    display: flex;
+}
+
+main > * {
+    padding: 1rem;
+    margin: 1rem;
+    width: 33%;
+    background: var(--light-yellow);
+}
+
+select {
+    background-color: var(--grey-yellow);
+}
+
+.create-appointment-button {
+    border-radius: 0;
+    margin: 4px;
+    width: 100%;
+    background-color: var(--grey-yellow);
+}
+
+.fullwidth {
+    width: 100%;
+}

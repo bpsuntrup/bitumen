@@ -1,15 +1,15 @@
 import { useState } from "react";
 import leftPad from "left-pad";
 import moment from "moment-timezone";
-import 'react-calendar/dist/Calendar.css';
 
 export default function EventForm({addEvent, events, apptDate}) {
+
 
     let [startTime, setStartTime] = useState();
     let [endTime, setEndTime] = useState();
 
-    const startTimes = timeRange(apptDate, '08:00', '19:30', [30, 'm']) // TODO: filter unavailable times
-    const endTimes = timeRange(apptDate, '08:30', '20:00', [30, 'm'])
+    const startTimes = timeRange(new Date(), '08:00', '19:30', [30, 'm']) // TODO: filter unavailable times
+    const endTimes = timeRange(new Date(), '08:30', '20:00', [30, 'm'])
 
     let startOptions = startTimes.map((t) => {
         let hhmm = t.format('hh:mm A z');
@@ -22,6 +22,7 @@ export default function EventForm({addEvent, events, apptDate}) {
         let hhmm = t.format('hh:mm A z');
         let HHmm = t.format('HH:mm');
         let duration = showDiff(startTime, t);
+        duration = Math.round(duration * 10) / 10;
         if (duration > 0) {
             return <option value={HHmm}> {`${hhmm} (+${duration} hrs)` } </option>
         }
@@ -29,21 +30,40 @@ export default function EventForm({addEvent, events, apptDate}) {
 
     endOptions.unshift(<option value=""> {"Select a Time"} </option>);
 
-    return (<>
+    const handleNewEvent = function(e) {
+        addEvent({
+            startTime: startTime.toDate(),
+        })
+    }
+
+    return (<div className={"event-form"}>
         <label> Start Time: </label> 
-        <select onChange={(e) => {setStartTime(newTime(apptDate, e.target.value))}}>
+        <select onChange={(e) => {setStartTime(newTime(new Date(), e.target.value))}}>
             {startOptions}
         </select>
-        { startTime ? 
+
+        <br />
+        {
+            startTime
+            ?
             <>
-        <label> End Time: </label>
-        <select onChange={(e) => {setEndTime(newTime(apptDate, e.target.value))}}>
-            {endOptions}
-        </select></>
-        :  ""}
-        <div> {apptDate.toDateString()} </div>
-        <div> {startTime ? startTime.format('YYYY MM dd hh:mm A z') : "select a time"} </div>
-    </>)
+                <label> End Time: </label>
+                <select onChange={(e) => {setEndTime(newTime(new Date(), e.target.value))}}>
+                    {endOptions}
+                </select>
+            </>
+            :  ""
+        }
+        <br/>
+        <p> Description </p>
+        <textarea className={"fullwidth"} />
+        {
+            endTime
+            ?
+            <button className={"create-appointment-button"} onClick={handleNewEvent}> Create Appointment</button>
+            :  ""
+        }
+    </div>)
 }
 
 function showDiff(startdate, enddate) {
