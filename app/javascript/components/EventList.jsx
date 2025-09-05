@@ -1,7 +1,6 @@
 import moment from "moment";
 
 export default function EventList({eventList,apptDate}) {
-    console.log(apptDate);
     eventList = eventList.filter((e) => {
         return e.startTime.toDateString() == apptDate.toDateString()
     }).map(e => {

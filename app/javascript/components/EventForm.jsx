@@ -2,11 +2,13 @@ import { useState } from "react";
 import leftPad from "left-pad";
 import moment from "moment-timezone";
 
-export default function EventForm({addEvent, events, apptDate}) {
+export default function EventForm({addEvent}) {
 
 
     let [startTime, setStartTime] = useState();
     let [endTime, setEndTime] = useState();
+    let [description, setDesc] = useState();
+    let [place, setPlace] = useState();
 
     const startTimes = timeRange(new Date(), '08:00', '19:30', [30, 'm']) // TODO: filter unavailable times
     const endTimes = timeRange(new Date(), '08:30', '20:00', [30, 'm'])
@@ -33,6 +35,9 @@ export default function EventForm({addEvent, events, apptDate}) {
     const handleNewEvent = function(e) {
         addEvent({
             startTime: startTime.toDate(),
+            duration: moment.duration(endTime.diff(startTime)).as('minutes'),
+            where: place,
+            details: description,
         })
     }
 
@@ -55,8 +60,10 @@ export default function EventForm({addEvent, events, apptDate}) {
             :  ""
         }
         <br/>
+        <p> Location </p>
+        <input className={"fullwidth"} onChange={(e) => {setPlace(e.target.value)}} />
         <p> Description </p>
-        <textarea className={"fullwidth"} />
+        <textarea className={"fullwidth"} onChange={(e) => {setDesc(e.target.value)}}/>
         {
             endTime
             ?

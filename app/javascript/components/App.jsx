@@ -27,8 +27,7 @@ export default function App() {
 }
 
 function addEvent(events, setEvents, e) {
-    events.push(e);
-    setEvents(events);
+    setEvents([...events, e]);
 }
 
 function getEventList() {
