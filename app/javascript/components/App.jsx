@@ -11,30 +11,34 @@ export default function App() {
     let [apptDate, setApptDate] = useState(new Date());
 
     const views = {
-        form: <EventForm addEvent={(e) => {addEvent(events, setEvents, e)}} events={events}/>,
+        form: <EventForm addEvent={addEvent} events={events}/>,
         list: <EventList eventList={events} />,
+    };
+
+    const addEvent = function(e) {
+        e.startTime.setYear(apptDate.getFullYear());
+        e.startTime.setMonth(apptDate.getMonth());
+        e.startTime.setDate(apptDate.getDate());
+        setEvents([...events, e]);
     };
 
     return (<>
         <h1>Bitumen</h1>
         <h2> Set up an appointment with Ben </h2>
         <main id="main-container">
-            <div class="main-widget"> <Calendar onChange={setApptDate} value={apptDate} /> </div>
-            <EventForm addEvent={(e) => {addEvent(events, setEvents, e)}} events={events} apptDate={apptDate}/>
+            <div className={"main-widget"}> <Calendar onChange={setApptDate} value={apptDate} /> </div>
+            <EventForm addEvent={addEvent} />
             <EventList eventList={events} apptDate={apptDate}/>
         </main>
     </>);
 }
 
-function addEvent(events, setEvents, e) {
-    setEvents([...events, e]);
-}
 
 function getEventList() {
     return [
         {
             eventId: 1,
-            startTime: new Date("4 September 2025 2:00:00PM CDT"),
+            startTime: new Date(),
             duration: 30,
             where: "Ben's garage",
             details: "Birthday party!",

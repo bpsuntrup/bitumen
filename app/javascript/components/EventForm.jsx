@@ -32,7 +32,7 @@ export default function EventForm({addEvent}) {
 
     endOptions.unshift(<option value=""> {"Select a Time"} </option>);
 
-    const handleNewEvent = function(e) {
+    const handleNewEvent = function() {
         addEvent({
             startTime: startTime.toDate(),
             duration: moment.duration(endTime.diff(startTime)).as('minutes'),
@@ -78,7 +78,6 @@ function showDiff(startdate, enddate) {
         return undefined;
     }
     const diff =  moment.duration(enddate.diff(startdate))
-    console.log(diff)
     return diff.asHours()
 }
 
